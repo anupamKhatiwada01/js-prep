@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample Site</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    body { padding-top: 50px; }
+  </style>
+</head>
+<body>
+
+  <!-- <div class="container">
+    <div class="jumbotron">
+      <h1>res.sendFile() Works!</h1>
+    </div>
+  </div> -->
+  <div>
+      <button id="lundchalak"><p>Chala ja bhosadike!</p></button>
+
+      <h1>clicked <p id="xyz"></p> times!</h1>
+  </div>
+
+
+  <script>
+
+    // let count= 0;
+
+
+
+    let btn = document.getElementById("lundchalak");
+    let p = document.getElementById("xyz");    
+    // We need to count the number of times the button was clicked without using a global variable
+    // We need to apply what we have learnt about functions and clsures and see how we can achieve this
+
+    function closureFunction(){
+        let count = 0;
+        btn.addEventListener('click',function xyz (){
+            count++;
+            p.innerText = count;
+        })
+
+    }
+
+    // closureFunction();
+
+    (()=>{console.log("Will this work???")})()
+
+
+
+    // Garbage collection and remove event listeners
+
+   
+
+  </script>
+    
+</body>
+</html>

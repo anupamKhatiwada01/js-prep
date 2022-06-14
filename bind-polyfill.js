@@ -27,7 +27,7 @@
                 // We need access to the agruments that were passed by the user in some function
                 // The arguments will form a closure with the function 
                 // We need to find its arguments
-                return someFunction(...newArgs);
+                return someFunction( );
             }
 
             return myBindTwo(args[0],this);
