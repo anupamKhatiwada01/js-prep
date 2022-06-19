@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Async practice</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    body { padding-top: 50px; }    
+  </style>
+</head>
+<!--   <script src="/sample.js"></script> -->
+
+  <body>
+
+<script>
+
+
+
+
+// We'll start with some callbacks
+  // console.log("Its wirking");
+
+
+
+  
+
+
+  // loadScript('/sample.js'); // Hoisting bitches!!
+  // console.log(checkerFunction()); // This throws a not defined error
+  // How do we fix this?
+  // Callbacks!!!
+  // function loadScript(src,callback){
+  //   let script = document.createElement('script');
+  //   // console.log("This runs")
+  //   script.src=src;
+  //   // console.log("this also runs")
+  //   script.onload = () => callback(script);
+    
+  //   document.head.append(script);
+  //   // console.log("this does not run")
+    
+  // }
+
+  // console.log(loadScript('/sample.js'));
+  // loadScript('/sample.js',()=>alert("kameshwar"));
+//   loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js', script => {
+//   alert(`Cool, the script ${script.src} is loaded`);
+//   alert( _ ); // _ is a function declared in the loaded script
+// });
+
+  // What if we want to load multiple scripts?
+
+  // One way to do this is the callback inside a callback method
+  // loadScript('/sample.js',()=>{
+  //   alert("Sample.js has been loaded");
+  //   loadScript("/sample2.js",()=>{
+  //     alert("sample2.js has been loaded");
+  //     loadScript("/sample3.js",()=>{
+  //       alert("sample3 has laoded");
+  //     })
+  //   })
+  // })
+  // In the above function we are nesting callbacks in a way that call backs run till one particular callback fails
+  // All callbacks run only when none of them fail. So we have chained our call backs
+  // This is fine upto a certain point but we will run into fuck all problems when we reach a higher
+  // degree of complexity.
+  // We should avoid doing this. Let's check out some alternatives.
+
+
+  // Lets look at how errors are handled for aynchronous functions
+   function loadScript(src,callback){
+    let script = document.createElement('script');
+    // console.log("This runs")
+    script.src=src;
+    // console.log("this also runs")
+    script.onload = () => callback(null,script);
+    script.onerror = () => callback(new Error(`Script load error for ${src}`))
+    
+    document.head.append(script);
+    // console.log("this does not run")
+    
+  }
+
+
+  // This apparently forms the pyramid of doom.
+  // They have provided another method to deal with this which seperates out everycall back
+  // I dont know why it looks like syntactic sugar.
+  // loadScript('/sample.js',(error,script)=>{
+  //   if(error){
+  //     console.log(error);
+  //   }else{
+  //     loadScript("/sample2.js",(error,script)=>{
+  //       if(error){
+  //         console.log(error);
+  //       }else{
+  //         loadScript("/sample3.js",(error,script)=>{
+  //           if(error){
+  //             console.log(error);
+  //           }else{
+  //             console.log("All is working well")
+  //           }
+  //         })
+  //       }
+  //     })
+  //   }
+  // })
+
+  loadScript("/sample.js",step1);
+  function step1(error,script){
+    if (error){
+      console.log(error);
+    }
+    else loadScript('/script2.js',step2)
+  }
+
+
+  function step2(error,script){
+    if (error){
+      console.log(error);
+    }
+    else loadScript('/script3.js',step2)
+  }
+
+
+  // Both the above methods are exactly the same. The below method just provides some syntactic sugar.
+  
+  
+
+  
+  
+  
+
+
+
+
+
+
+  
+</script>
+</body>
+</html>
