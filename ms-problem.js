@@ -49,17 +49,22 @@ function container(obj){
         // We are using the external scope and adding a degree of abstraction to get our work done
         // This is not a pure function as it pollutes the global/outer scope.
         // We need to change this impure recursive function into a pure recursive function
+        // How the fuck to we make this a pure function
+        // This else block is our fruit basket
+        // "All" problems in computer science can be solved by adding a layer of abstraction 
         store[s?s+"."+key:key]=object[key];
         
       }
     }
 
   }
+  
   x(obj);
   return store;
   
 }
 
 
-console.log(container(sampleObj))
+// console.log(container(sampleObj))
 // Solves the problem but its not very clean. I dont like it.
+
