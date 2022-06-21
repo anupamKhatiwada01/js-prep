@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview Prep</title>
+</head>
+<body>
+
+
+
+<p>Let's begin our interview prep.</p>
+
+
+
+
+<!--   <div>
+    <ul id="category">
+      <li id="laptops" data-uppercase>laptops</li>
+      <li id="cameras">cameras</li>
+      <li id="shoes">shoes</li>
+      
+    </ul>
+  </div>
+
+
+  <div id="form">
+
+
+  
+    <input type="text" id="name" data-uppercase>
+    <input type="text" id="pan" >
+    <input type="text" id="mobile" >
+    <input type="text" id="landline" >
+    
+
+
+    
+  </div> -->
+
+
+
+
+
+  <script>
+
+  console.log("hello world!!!");
+
+    // let arr = ["abc","xyz"];
+
+    // let object = {
+    //   name:"abc",
+    //   city:"ghy",
+    //   getIntro:function(){
+    //     console.log(this.name+" "+this.city);
+    //   }
+    // }
+
+
+    // let object2 = {
+    //   name:"monkey man",
+    //   city:"shillong"
+    // }
+
+
+    // function fun(){
+    //   console.log("This is inside the fun function: "+this.name+" "+this.city);
+    // }
+
+    // Object.prototype.fun = fun;
+    // arr.fun();
+    // In the above line of code we notice that it doesn't throw an error
+    // As Array.prototype extends Object.prototype all methods present on the Pbject prototype are available for the
+    // array also. These properties might also have been overidden to provide custom features.
+
+    // Apparently we should never do this. I personally don't understand why. Its seems so nice and convenient.
+    // object2.__proto__ = object;
+
+    // object2.fun();
+
+
+
+    
+    // document.getElementById("form").addEventListener('keydown',(e)=>{
+
+    //     if(e.target.dataset.uppercase != undefined){
+    //       e.target.value = e.target.value.toUpperCase();touch sampl  
+    //     }
+    // })
+
+
+
+
+    function loadScript(src){
+      return new Promise((resolve,reject)=>{
+             let script = document.createElement('script');
+             script.src = src;
+             script.onload =resolve(script);
+             script.onerror = reject(new Error(`Script load error for ${src}`));
+             document.head.append(script);
+         })   
+     }
+
+    loadScript('./sample1.js').then((script)=>loadScript('./sample2.js')).then((script)=>loadScript("./sample3.js"))
+      // .then(()=>loadScript('sample4.js'))
+      // .catch((error)=>{console.log(error)})
+      .then((script)=>{
+        console.log("This is the script ",script.src)
+        // Dont 
+        // cfOne();
+        // cfTwo();
+        // cfThree();
+        // cfFour();
+    })
+
+
+
+
+    class Thenable{
+      constructor(num){
+        this.num = num;
+      }
+
+      then(resolve,reject){
+        // alert(resolve);
+        setTimeout(()=>resolve(this.num*5),1200);
+      }
+    }
+
+    // new Promise(resolve=>resolve(10)).then(result=>new Thenable(result)).then((result)=>console.log("this is the final result",result))
+
+    // JS waits for the object returned by the .then handler. If it has a callable method named .then, then it calls that method providing native functions resolve and reject as arguments and waits until one of them is called. Then the result of that is passed down the chain.
+
+    // This features allows us to integrate custom objects with promise chains without having to inherit from promise.
+
+
+
+    // Now lets play around with fetch a little
+    // fetch('https://google.com').then((response,error)=>console.log(response)).catch(error=>console.log(error));
+
+    
+    // Are promise.then(f1).catch(f2) same as promise.then(f1,f2)?
+    // No these two cases are not equal because in the first case if the first .then method fails the error is passed down down the chain to the promise received by the .catch method where in the second case there is no chain for the error to propagate to
+
+    // Promises provide excellent error handling which works down the chain so alll errors are caught along with rejections as we move down the chain.
+
+    // What happens if a regular error occurs and is not caught by try and catch? The script dies in the console.
+    // Same thing happens with promises. Errors or unhandled rejections are handled the same way normal errors are handled.
+
+
+    window.addEventListener('unhandledrejection',(e)=>{
+      alert(e.promise);
+      alert(e.reason);
+    })
+
+    // new Promise((resolve,reject)=> {throw new Error("Whoops!")})
+    
+    // new Promise((resolve,reject)=>{
+    //   setTimeout(()=> reject(new Error("Lundesh")),1000);
+    // }).catch(alert)
+
+
+
+    // A rest method is said to be idempotent if multiple identical calls to a server dont change the state of the server.
+    // Get put and delete are idempotent methods because mutiple calls to the server will not its state.
+    // Post is not idempotent because multiple post calls will keep adding elements.
+    // Delete is idempotent because the first time element may be deleted if it exits but mutiple calls for its deletion will not chanfge the stete of the server.
+
+
+    // Lets start with async/await
+
+
+    // Async functions
+    async function f(){
+      return 1;
+    }
+
+    // We could explicitely return a promise and that would be the same thing
+    async function b(){
+      return new Promise((resolve)=>resolve(1))
+    }
+
+    b().then(alert);  
+    // The word "async" before a function means only one thing that the function always returns a promise.
+    // Other values are wrapped in resolved promise automatically.
+    
+  // There is another keyword await that works only inside async functions.
+
+
+    // Await
+
+    // The keyword "await" makes javascript "wait" until that promise settles and retruens the result.
+    // What it does is it adds it to the microtask queue and is added to the callstack by the event loop
+
+    async function t(){
+      let promise = new Promise((resolve,reject)=>{
+        setTimeout(()=>resolve(200),1200);
+      })
+        
+        let result = await promise;// This is some crisp syntax which lets us just collect the value very cleanly once the promise resolves
+      // The function execution pauses at line 201 and resumes when the promise settles with result becoming its result.
+    alert(result);
+    }
+    t();
+  // We cant use await in regular functions as it causes a syntax error
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+     
+
+
+    
+  </script>
+  
+</body>
+</html>
